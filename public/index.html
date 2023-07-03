@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twitch Bot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-if="isLoaded" class="container">
+            <h1>Twitch Bot</h1>
+            <form @submit.prevent="addCommand" id="addForm">
+                <div class="form-group">
+                    <label for="word-input">Comando</label>
+                    <input v-model="word" type="text" id="word-input" />
+                </div>
+                <div class="form-group">
+                    <label for="response-input">Resposta</label>
+                    <input v-model="response" type="text" id="response-input" />
+                </div>
+                <button type="submit">Adicionar</button>
+            </form>
+            <br>
+            <hr style="color: whitesmoke"/>
+            <br>
+            <div v-if="watchedWords.length > 0">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Comando</th>
+                        <th>Resposta</th>
+                        <th>Remover</th>
+                    </tr>
+                    </thead>
+                    <tbody id="word-table-body">
+                    <tr v-for="watchedWord in watchedWords">
+                        <td>{{ watchedWord.word }}</td>
+                        <td>{{ watchedWord.response }}</td>
+                        <td>
+                            <button @click.prevent="() => removeCommand(watchedWord.word)">remove</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-else style="color: whitesmoke">
+                Nenhum comando adicionado ainda
+            </div>
+        </div>
+        <div v-else style="text-align: center; color: whitesmoke;">
+            tá carregando, burro...
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, onBeforeMount } = Vue
+
+        createApp({
+            setup() {
+                const isLoaded = ref(false)
+                const watchedWords = ref([])
+
+                const word = ref('')
+                const response = ref('')
+
+                onBeforeMount(async () => {
+                    const response = await fetch('/api/commands')
+                    const { watchedWords: list } = await response.json()
+                    watchedWords.value = list
+                    isLoaded.value = true
+                })
+
+                async function removeCommand(word) {
+                    const res = await fetch(`/api/commands/${word}`, { method: 'DELETE' })
+                    const { watchedWords: list } = await res.json()
+                    watchedWords.value = list
+                    // watchedWords.value = watchedWords.value.filter(w => w.word !== word)
+                }
+
+                async function addCommand() {
+                    if (!word.value || !response.value) return
+                    if (word.value === '' || response.value === '') return
+
+                    let newCommand = word.value
+
+                    if (!word.value.startsWith('!')) {
+                        newCommand = `!${word.value}`
+                    }
+
+                    if (watchedWords.value.find((w) => w.word === newCommand) !== undefined) {
+                        alert(`O comando ${newCommand} já existe!`)
+                        return
+                    }
+
+                    const res = await fetch('/api/commands', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ word: newCommand, response: response.value })
+                    })
+                    const { watchedWords: list } = await res.json()
+                    watchedWords.value = list
+                    word.value = ''
+                    response.value = ''
+                }
+
+                return {
+                    isLoaded,
+                    watchedWords,
+                    word,
+                    response,
+                    removeCommand,
+                    addCommand
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+!dpi|400 dpi
+!discord|discord.gg/DQSd9cqTWD
+!res|1920x1080 / 1440x1080
+!drop|Seus Drops foram ativados! Não esqueça de resgatar assim que liberar!
+!comandos|Todos os comandos atualmente: !music - !dpi - !res - !discord - !drop
+!teste|teste
+!drops|Seus Drops foram ativados! Não esqueça de resgatar assim que liberar!

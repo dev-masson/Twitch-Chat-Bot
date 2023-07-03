@@ -1,0 +1,120 @@
+:root {
+    --bg-color: #212529;
+    --border-color: #666;
+    --font-color: #f1f5f9;
+    --primary-color: #4dff91;
+}
+
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: var(--font-color);
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: var(--font-color);
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-group {
+    flex-basis: 50%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: whitesmoke;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-color);
+    border: 2px solid var(--border-color);
+    color: whitesmoke;
+}
+
+button[type="submit"] {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #71f100;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #377200;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-color);
+    border: 2px solid var(--border-color);
+    color: whitesmoke;
+}
+
+table th {
+    background-color: var(--bg-color);
+
+}
+
+table td:last-child {
+    text-align: center;
+}
+
+table td:last-child button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ff2222;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+table td:last-child button:hover {
+    background-color: #942b05;
+}
+
+
