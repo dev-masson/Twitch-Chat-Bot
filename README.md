@@ -24,4 +24,4 @@ Até o momento, não tenho nenhuma ideia de implementação futura. Sugestões s
 ## Observações
 Esse foi o meu primeiro projeto prático em JavaScript. Pode estar confuso, e algumas funções podem estar desnecessariamente maiores do que deveriam. No entanto, foi um projeto voltado para o meu desenvolvimento pessoal, com o objetivo de aprender o básico da linguagem.
 
-Big thanks pela imensa ajuda ajuda [@Jãonoctus](https://github.com/jaonoctus)
+Big thanks pela imensa ajuda [@Jãonoctus](https://github.com/jaonoctus)
